@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - QR Kod Oluşturucu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Giriş formu container'ı -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Logo/Başlık -->
+            <div class="auth-header">
+                <h1>🔐 Giriş Yap</h1>
+                <p>QR Kod Oluşturucu Sistemine Hoşgeldiniz</p>
+            </div>
+
+            <!-- Hata/Başarı Mesajı -->
+            <div id="message" class="message hidden"></div>
+
+            <!-- Giriş Formu -->
+            <form id="loginForm">
+                <!-- Email Alanı -->
+                <div class="form-group">
+                    <label for="email">Email Adresi</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="örn: kullanici@email.com"
+                        required
+                    >
+                </div>
+
+                <!-- Şifre Alanı -->
+                <div class="form-group">
+                    <label for="password">Şifre</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Şifrenizi girin"
+                        required
+                    >
+                </div>
+
+                <!-- Giriş Butonu -->
+                <button type="submit" class="btn btn-primary">Giriş Yap</button>
+            </form>
+
+            <!-- Kayıt Sayfasına Yönlendirme -->
+            <div class="auth-footer">
+                <p>Hesabınız yok mu? 
+                    <a href="register.html" class="link">Kayıt olun</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript dosyasını yükle -->
+    <script src="script.js"></script>
+</body>
+</html>

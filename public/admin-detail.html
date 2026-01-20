@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Detay - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="hamburger" id="hamburgerBtn">☰</button>
+            
+            <div class="nav-title">
+                <h1>⚙️ Admin Paneli</h1>
+            </div>
+
+            <div class="nav-actions" id="navActions">
+                <div class="nav-buttons">
+                    <a href="/admin" class="btn btn-secondary">◀ Admin Paneline Dön</a>
+                    <a href="/dashboard.html" class="btn btn-secondary">🏠 Dashboard</a>
+                    <button id="adminLogoutBtn" class="btn btn-secondary">📤 Çıkış</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading Container -->
+    <div id="loadingContainer" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <p>Lütfen bekleyiniz...</p>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Detail Container -->
+    <div class="admin-container user-detail-container" id="userDetailContainer" style="display: none;">
+        
+        <!-- Kullanıcı Bilgileri -->
+        <div class="section user-info-section">
+            <h2>👤 Kullanıcı Bilgileri</h2>
+            
+            <div class="info-card">
+                <div class="info-item">
+                    <label>Kullanıcı Adı:</label>
+                    <span id="userUsername"></span>
+                </div>
+                <div class="info-item">
+                    <label>E-posta:</label>
+                    <span id="userEmail"></span>
+                </div>
+                <div class="info-item">
+                    <label>Rol:</label>
+                    <span id="userRole" class="role-badge"></span>
+                </div>
+                <div class="info-item">
+                    <label>Kayıt Tarihi:</label>
+                    <span id="userCreatedAt"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kullanıcının QR Kodları -->
+        <div class="section">
+            <h2>📊 Kullanıcının QR Kodları</h2>
+            
+            <div id="qrLoadingMessage" class="message info">QR kodlar yükleniyor...</div>
+            
+            <div class="qr-grid" id="qrCodeGrid">
+                <!-- QR kodlar buraya gelecek -->
+            </div>
+
+            <div id="noQRMessage" class="empty-state hidden">
+                <p>📭 Bu kullanıcının henüz QR kodu yok</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unauthorized Access -->
+    <div id="unauthorizedContainer" class="auth-container hidden">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>🔒 Erişim Reddedildi</h2>
+                <p>Bu sayfaya erişim izniniz yok.</p>
+                <a href="dashboard.html" class="btn btn-primary" style="margin-top: 20px;">🏠 Ana Sayfaya Dön</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-detail.js"></script>
+</body>
+</html>

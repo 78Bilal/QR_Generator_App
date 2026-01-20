@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - QR Kod Oluşturucu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar (Üstte Sabitlenmiş) -->
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <button class="hamburger" id="hamburgerBtn">☰</button>
+
+            <div class="nav-title">
+            <h1>📱 QR Kod Oluşturucu</h1>
+            </div>
+
+            <!-- NAV ACTIONS (ÖNEMLİ) -->
+            <div class="nav-actions" id="navActions">
+
+            <!-- Kullanıcı Menüsü -->
+            <div class="nav-user" id="userMenu" style="display: none;">
+                <button id="userPanelBtn" class="username-display btn-user-panel">
+                    <span id="username"></span>
+                </button>
+                <div class="nav-buttons">
+                    <a href="/admin" class="btn btn-admin" id="adminLinkBtn" style="display: none;">⚙️ Admin</a>
+                    <button id="logoutBtn" class="btn btn-secondary">📤 Çıkış</button>
+                </div>
+            </div>
+
+            <!-- Guest Menü -->
+            <div class="nav-guest" id="guestMenu">
+                <a href="login.html" class="btn btn-primary-link">🔐 Giriş Yap</a>
+                <a href="register.html" class="btn btn-secondary">📝 Kayıt Ol</a>
+            </div>
+
+            </div>
+        </div>
+        </nav>
+
+    <!-- Loading Spinner -->
+    <div id="loadingContainer" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <p>Lütfen bekleyiniz...</p>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ana Container -->
+    <div class="dashboard-container" id="dashboardContainer" style="display: none;">
+        <!-- QR Oluşturma Bölümü -->
+        <div class="section">
+            <h2>🔗 Yeni QR Kod Oluştur</h2>
+            
+            <!-- Bilgilendirme Mesajı (Giriş yapılmamışsa) -->
+            <div id="guestInfo" class="info-box hidden">
+                <p>💡 QR kodları giriş yapmadan da oluşturabilirsiniz. Ancak geçmiş tarayıcı oturumu sona ererse silinir.</p>
+                <p><a href="login.html" class="link">🔐 Giriş yaparak</a> QR geçmişinizi kalıcı olarak saklayabilirsiniz.</p>
+            </div>
+            
+            <!-- Hata/Başarı Mesajı -->
+            <div id="generateMessage" class="message hidden"></div>
+
+            <!-- Sekme Seçimi -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="url-tab">🌐 URL/Metin</button>
+                <button class="tab-btn" data-tab="wifi-tab">📶 WiFi QR</button>
+            </div>
+
+            <!-- URL/Metin QR Formu -->
+            <div id="url-tab" class="tab-content active">
+                <form id="qrForm">
+                    <div class="form-group">
+                        <label for="qrData">QR Kod Verisi</label>
+                        <input 
+                            type="text" 
+                            id="qrData" 
+                            name="qrData" 
+                            placeholder="URL, metin veya başka veri girin"
+                            required
+                        >
+                        <small>Bağlantı, metin, telefon numarası vb. girebilirsiniz</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">QR Kod Oluştur</button>
+                </form>
+            </div>
+
+            <!-- WiFi QR Formu -->
+            <div id="wifi-tab" class="tab-content">
+                <form id="wifiForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="wifiSSID">📡 WiFi Ağı Adı (SSID)</label>
+                            <input 
+                                type="text" 
+                                id="wifiSSID" 
+                                name="wifiSSID" 
+                                placeholder="örn: MyWiFi"
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="wifiPassword">🔐 WiFi Şifresi</label>
+                            <input 
+                                type="password" 
+                                id="wifiPassword" 
+                                name="wifiPassword" 
+                                placeholder="WiFi şifrenizi girin"
+                            >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="wifiSecurity">🛡️ Güvenlik Türü</label>
+                        <select id="wifiSecurity" name="wifiSecurity" required>
+                            <option value="WPA">WPA/WPA2</option>
+                            <option value="WEP">WEP</option>
+                            <option value="nopass">Açık Ağ (Şifresiz)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">WiFi QR Kodu Oluştur</button>
+                </form>
+            </div>
+
+            <!-- Oluşturulan QR Kod Gösterimi -->
+            <div id="qrResult" class="qr-result hidden">
+                <div class="qr-display">
+                    <img id="qrImage" src="" alt="QR Kod">
+                </div>
+                <div class="qr-actions">
+                    <button id="downloadBtn" class="btn btn-success">⬇️ İndir</button>
+                    <button id="clearBtn" class="btn btn-secondary">Temizle</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Kod Geçmişi Bölümü -->
+        <div class="section">
+            <h2>📋 QR Kod Geçmişi</h2>
+            
+            <!-- Üyeli Kullanıcı Geçmişi (DB'den) -->
+            <div id="memberQRHistory" class="qr-history" style="display: none;"></div>
+            
+            <!-- Üyesiz Kullanıcı Geçmişi (SessionStorage'dan) -->
+            <div id="guestQRHistory" class="qr-history" style="display: none;"></div>
+            
+            <!-- Geçmiş Yok Mesajı -->
+            <div id="noHistoryMessage" class="empty-state">
+                <p>📭 Henüz QR kod oluşturmadınız</p>
+                <small>Yukarıdaki formu kullanarak ilk QR kodunuzu oluşturun</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== KULLANICI PANELİ MODAL ===== -->
+    <div id="userPanelModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content user-panel">
+            <div class="modal-header">
+                <h2>👤 Kullanıcı Hesabım</h2>
+                <button class="modal-close" id="closePanelBtn">&times;</button>
+            </div>
+            
+            <div class="user-panel-body">
+                <!-- Kullanıcı Bilgileri -->
+                <div class="panel-section">
+                    <h3>Hesap Bilgileri</h3>
+                    <div class="info-item">
+                        <label>Kullanıcı Adı:</label>
+                        <span id="panelUsername"></span>
+                    </div>
+                    <div class="info-item">
+                        <label>E-posta:</label>
+                        <span id="panelEmail"></span>
+                    </div>
+                </div>
+
+                <!-- Eylemler -->
+                <div class="panel-actions">
+                    <button id="changePasswordBtn" class="btn btn-primary btn-full">🔐 Şifre Değiştir</button>
+                    <button id="deleteAccountPanelBtn" class="btn btn-danger btn-full">🗑️ Hesap Sil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ŞİFRE DEĞİŞTİR MODAL ===== -->
+    <div id="changePasswordModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content password-modal">
+            <div class="modal-header">
+                <h2>🔐 Şifre Değiştir</h2>
+                <button class="modal-close" id="closePasswordBtn">&times;</button>
+            </div>
+            
+            <form id="changePasswordForm" class="modal-form">
+                <div class="form-group">
+                    <label for="currentPassword">Mevcut Şifre</label>
+                    <input 
+                        type="password" 
+                        id="currentPassword" 
+                        placeholder="Mevcut şifrenizi girin"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword">Yeni Şifre</label>
+                    <input 
+                        type="password" 
+                        id="newPassword" 
+                        placeholder="Yeni şifre (en az 6 karakter)"
+                        required
+                    >
+                    <small>En az 6 karakter olmalıdır</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPasswordConfirm">Yeni Şifre (Tekrar)</label>
+                    <input 
+                        type="password" 
+                        id="newPasswordConfirm" 
+                        placeholder="Yeni şifrenizi tekrar girin"
+                        required
+                    >
+                </div>
+
+                <div id="passwordMessage" class="message hidden"></div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelPasswordBtn">İptal</button>
+                    <button type="submit" class="btn btn-primary">Şifre Değiştir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== HESAP SİL ONAY MODAL ===== -->
+    <div id="deleteConfirmModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content delete-confirm">
+            <div class="modal-header">
+                <h2>⚠️ Hesap Silme Onayı</h2>
+                <button class="modal-close" id="closeDeleteBtn">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="warning-text">
+                    ⚠️ <strong>Dikkat!</strong> Hesabınızı silmek <strong>geri alınamaz</strong>.
+                </p>
+                <ul class="delete-info">
+                    <li>Tüm hesap bilgileriniz silinecek</li>
+                    <li>Tüm QR kodlarınız silinecek</li>
+                    <li>Bu işlem geri alınamaz</li>
+                </ul>
+                <p>Devam etmek istiyor musunuz?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">İptal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Evet, Hesabımı Sil</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript dosyasını yükle -->
+    <script src="script.js"></script>
+</body>
+</html>

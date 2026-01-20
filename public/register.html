@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - QR Kod Oluşturucu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Kayıt formu container'ı -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Logo/Başlık -->
+            <div class="auth-header">
+                <h1>📝 Kayıt Ol</h1>
+                <p>Yeni bir hesap oluşturun</p>
+            </div>
+
+            <!-- Hata/Başarı Mesajı -->
+            <div id="message" class="message hidden"></div>
+
+            <!-- Kayıt Formu -->
+            <form id="registerForm">
+                <!-- Kullanıcı Adı Alanı -->
+                <div class="form-group">
+                    <label for="username">Kullanıcı Adı</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Kullanıcı adını girin"
+                        required
+                    >
+                </div>
+
+                <!-- Email Alanı -->
+                <div class="form-group">
+                    <label for="email">Email Adresi</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="örn: kullanici@email.com"
+                        required
+                    >
+                </div>
+
+                <!-- Şifre Alanı -->
+                <div class="form-group">
+                    <label for="password">Şifre</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Güçlü bir şifre girin"
+                        required
+                    >
+                    <small>Minimum 6 karakter olmalıdır</small>
+                </div>
+
+                <!-- Şifre Tekrar Alanı -->
+                <div class="form-group">
+                    <label for="passwordConfirm">Şifre Tekrar</label>
+                    <input 
+                        type="password" 
+                        id="passwordConfirm" 
+                        name="passwordConfirm" 
+                        placeholder="Şifrenizi tekrar girin"
+                        required
+                    >
+                </div>
+
+                <!-- Kayıt Butonu -->
+                <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+            </form>
+
+            <!-- Giriş Sayfasına Yönlendirme -->
+            <div class="auth-footer">
+                <p>Zaten hesabınız var mı? 
+                    <a href="login.html" class="link">Giriş yapın</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript dosyasını yükle -->
+    <script src="script.js"></script>
+</body>
+</html>

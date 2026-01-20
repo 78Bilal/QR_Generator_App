@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - QR Kod Oluşturucu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="hamburger" id="hamburgerBtn">☰</button>
+            
+            <div class="nav-title">
+                <h1>⚙️ Admin Paneli</h1>
+            </div>
+
+            <div class="nav-actions" id="navActions">
+                <div class="nav-buttons">
+                    <button id="adminCheckAuthBtn" class="btn btn-secondary" style="display: none;">✓ Admin</button>
+                    <a href="/dashboard.html" class="btn btn-secondary">🏠 Dashboard</a>
+                    <button id="adminLogoutBtn" class="btn btn-secondary">📤 Çıkış</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading Container -->
+    <div id="loadingContainer" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <p>Lütfen bekleyiniz...</p>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Container -->
+    <div class="admin-container" id="adminContainer" style="display: none;">
+        
+        <!-- İstatistikler -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-content">
+                    <p class="stat-label">Toplam Kullanıcı</p>
+                    <p class="stat-number" id="totalUsers">0</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <p class="stat-label">Toplam QR Kod</p>
+                    <p class="stat-number" id="totalQRCodes">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kullanıcı Listesi -->
+        <div class="section">
+            <h2>👥 Kullanıcılar</h2>
+            
+            <div id="loadingMessage" class="message info">Kullanıcılar yükleniyor...</div>
+            
+            <div class="table-responsive">
+                <table class="users-table" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>Kullanıcı Adı</th>
+                            <th>E-posta</th>
+                            <th>Rol</th>
+                            <th>Kayıt Tarihi</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td colspan="5" class="empty-message">Kullanıcı bulunamadı</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unauthorized Access -->
+    <div id="unauthorizedContainer" class="auth-container hidden">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>🔒 Erişim Reddedildi</h2>
+                <p>Bu sayfaya erişim izniniz yok.</p>
+                <a href="dashboard.html" class="btn btn-primary" style="margin-top: 20px;">🏠 Ana Sayfaya Dön</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
