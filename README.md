@@ -268,3 +268,4 @@ Hata bulunur veya öneriler için issue açınız.
 
 **Yapılan Tarih**: Ocak 2026  
 **Versiyon**: 1.0.0
+# QR_Generator_App
