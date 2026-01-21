@@ -43,29 +43,7 @@ QR_Generator_App/
 ├── routes/                 # API Rotaları (Auth, QR, Admin)
 ├── middleware/             # Yetkilendirme (Auth & Admin)
 └── public/                 # Frontend (HTML, CSS, SPA Router, Script)
-
-
-## ⚙️ Kurulum
-
-### 1. Repoyu Klonlayın
-```bash
-git clone [https://github.com/78Bilal/QR_Generator_App.git](https://github.com/78Bilal/QR_Generator_App.git)
-cd QR_Generator_App
-
-Anladım knk, kopyalarken Markdown formatı bozulmuş. Senin için her şeyi yerli yerine koydum, kullanıcı adını da verdiğin gibi 78Bilal olarak güncelledim.
-
-Aşağıdaki bloğu sağ üstteki kopyalama butonuna basarak direkt README.md dosyasına yapıştırabilirsin:
-
-Markdown
-# 🚀 QR Generator App + Admin Paneli
-
-![GitHub repo size](https://img.shields.io/github/repo-size/78Bilal/QR_Generator_App?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/78Bilal/QR_Generator_App?style=for-the-badge&color=blue)
-![License](https://img.shields.io/github/license/78Bilal/QR_Generator_App?style=for-the-badge&color=green)
-
-Modern, güvenli ve **Single Page Application (SPA)** mimarisiyle geliştirilmiş, tam kapsamlı bir QR Kod yönetim sistemidir.
-
----
+```
 
 ## ⚙️ Kurulum
 
@@ -73,14 +51,17 @@ Modern, güvenli ve **Single Page Application (SPA)** mimarisiyle geliştirilmi�
 ```bash
 git clone [https://github.com/78Bilal/QR_Generator_App.git](https://github.com/78Bilal/QR_Generator_App.git)
 cd QR_Generator_App
+```
 
 2. Bağımlılıkları Yükleyin
 ```bash
 npm install
+```
 
 3. Uygulamayı Başlatın
 ```bash
 node server.js
+```
 
 💡 Uygulama varsayılan olarak http://localhost:3000 adresinde çalışacaktır. SQLite veritabanı ilk çalıştırmada otomatik olarak oluşturulur.
 
@@ -113,4 +94,4 @@ Pull Request açın.
 
 Geliştirici: Muhammed Bilal
 
-Tarih: Ocak 2026 | Versiyon: 1.0.0 | Lisans: MIT
+Tarih: Ocak 2026 | Versiyon: 1.0.0
